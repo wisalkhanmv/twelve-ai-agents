@@ -1,0 +1,3 @@
+[submodule "hf/hf/twelve-ai-agents"]
+	path = hf/hf/twelve-ai-agents
+	url = https://huggingface.co/spaces/wisalkhanmv/twelve-ai-agents
