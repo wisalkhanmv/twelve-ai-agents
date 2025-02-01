@@ -20,4 +20,16 @@ setup(
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.7',
+    install_requires=[
+        'numpy',
+        'python-dotenv',
+        'websockets',
+        'fastapi',
+        'nltk',
+        'tqdm',
+        'beautifulsoup4'
+    ],
+    extras_require={
+        'openai': ['openai'],
+    },
 )

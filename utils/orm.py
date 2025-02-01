@@ -143,24 +143,52 @@ class Room:
         except Exception as e:
             st.error(f"Error getting response from {agent.name}: {str(e)}")
             return None
+        
+    def continue_discussion(self, additional_rounds: int):
+        """
+        Continues the discussion for additional rounds without resetting history.
+        """
+        self.max_rounds += additional_rounds
+        self.current_round = 0
+
+    def analyze_final_positions(self, positions: Dict[str, str]) -> dict:
+        """
+        Analyzes the final positions to determine majority consensus.
+        """
+        from collections import Counter
+        
+        # Analyze positions for common themes/decisions
+        key_decisions = []
+        for position in positions.values():
+            # Extract key decision from the position statement
+            # You might need to adjust the prompt to get more structured responses
+            key_decisions.append(position.split('.')[0])  # Take first sentence as key decision
+        
+        # Find majority decision
+        majority_decision = Counter(key_decisions).most_common(1)[0][0]
+        
+        return {
+            "individual_positions": positions,
+            "majority_decision": majority_decision,
+            "consensus_reached": len(set(key_decisions)) == 1
+        }
 
     def finalize_discussion(self, client):
         """
-        Has each agent provide their final position on the discussion.
+        Has each agent provide their final position and analyzes consensus.
         """
         final_positions = {}
+        
+        system_prompt = """Based on the entire discussion, provide your final position.
+        Start with a clear decision statement in the first sentence.
+        Then explain your reasoning briefly."""
+        
         for agent in self.agents:
-            system_prompt = f"""You are {agent.name}. Based on the discussion so far, provide your final position on the topic:
-
-            {self.dilemma}
-
-            Keep your response aligned with your personality: {agent.personality}"""
-
             try:
                 response = client.chat.completions.create(
                     model="gpt-4o-mini",
                     messages=[
-                        {"role": "system", "content": system_prompt},
+                        {"role": "system", "content": f"You are {agent.name}. {system_prompt}"},
                         {"role": "user", "content": "What is your final position on this topic?"}
                     ]
                 )
@@ -172,4 +200,4 @@ class Room:
             except Exception as e:
                 st.error(f"Error getting final position from {agent.name}: {str(e)}")
         
-        return final_positions
+        return self.analyze_final_positions(final_positions)
