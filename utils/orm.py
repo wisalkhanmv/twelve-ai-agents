@@ -181,14 +181,16 @@ class Room:
         
         system_prompt = """Based on the entire discussion, provide your final position.
         Start with a clear decision statement in the first sentence.
-        Then explain your reasoning briefly."""
+        Then explain your reasoning briefly.
+        """
         
         for agent in self.agents:
             try:
                 response = client.chat.completions.create(
                     model="gpt-4o-mini",
                     messages=[
-                        {"role": "system", "content": f"You are {agent.name}. {system_prompt}"},
+                        {"role": "system", "content": f"""You are {agent.name}. {system_prompt}, This is your chat history:
+                                                        {agent.message_history}"""},
                         {"role": "user", "content": "What is your final position on this topic?"}
                     ]
                 )
