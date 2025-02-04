@@ -136,8 +136,11 @@ def main():
 
         # Handle start button
         if start_button:
-            st.session_state.messages = []
+            moderator = next((agent for agent in AGENTS if agent.name == "The Moderator"), None)
+            st.session_state.room = Room(agents=AGENTS, moderator=moderator)
+            st.session_state.client = get_client()
             st.session_state.current_round = 0
+            st.session_state.messages = []
             st.session_state.current_agent_index = 0
             moderator_intro = st.session_state.room.set_dilemma(dilemma)
             initial_message = {

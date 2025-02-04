@@ -149,7 +149,6 @@ class Room:
         Continues the discussion for additional rounds without resetting history.
         """
         self.max_rounds += additional_rounds
-        self.current_round = 0
 
     def analyze_final_positions(self, positions: Dict[str, str]) -> dict:
         """
@@ -161,7 +160,6 @@ class Room:
         key_decisions = []
         for position in positions.values():
             # Extract key decision from the position statement
-            # You might need to adjust the prompt to get more structured responses
             key_decisions.append(position.split('.')[0])  # Take first sentence as key decision
         
         # Find majority decision
