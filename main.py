@@ -1,7 +1,7 @@
 import streamlit as st
-from utils.orm import Room
-from utils.agents_dilemmas import AGENTS, DILEMMAS
-from utils.utils import get_client
+from twelve_ai_agents.orm import Room
+from twelve_ai_agents.agents_dilemmas import AGENTS, DILEMMAS
+from twelve_ai_agents.utils import get_client
 import time
 from itertools import groupby
 
