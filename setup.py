@@ -22,11 +22,10 @@ setup(
     install_requires=[
         'numpy',
         'python-dotenv',
-        'websockets',
         'fastapi',
         'nltk',
         'tqdm',
-        'beautifulsoup4'
+        'streamlit'
     ],
     extras_require={
         'openai': ['openai'],
