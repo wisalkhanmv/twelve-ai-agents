@@ -16,4 +16,4 @@ COPY . .
 EXPOSE 8000
 
 # Command to run the FastAPI app
-CMD ["streamlit", "run", "app.py"]
+CMD ["streamlit", "run", "main_streamlit.py"]

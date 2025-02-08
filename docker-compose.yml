@@ -10,4 +10,4 @@ services:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
     volumes:
       - .:/app
-    command: uvicorn main:app --host 0.0.0.0 --port 8000
+    command: streamlit run main_streamlit.py
