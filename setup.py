@@ -4,7 +4,6 @@ setup(
     name='twelve-ai-agents',
     version='0.1.0',
     packages=find_packages(),
-    install_requires=[],
     entry_points={
         'console_scripts': [
             'twelve-ai-agents=main:main'
