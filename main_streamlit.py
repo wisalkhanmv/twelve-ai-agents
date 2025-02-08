@@ -210,7 +210,9 @@ def main():
     if st.session_state.discussion_completed:
         show_discussion_history()
         show_summary()
-        save_conversation_log()  # Save the log when the discussion is completed
+
+        #**** UNCOMMENT TO SAVE CONVERSATION LOGS ****
+        # save_conversation_log()  # Save the log when the discussion is completed
     else:
         if st.session_state.discussion_started:
             st.write(f"Current Round: {st.session_state.current_round + 1} / {st.session_state.max_rounds}")
